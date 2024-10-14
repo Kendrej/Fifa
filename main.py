@@ -1,5 +1,3 @@
-# main.py
-print("Ładowanie modułu main")  # Dodaj tę linijkę do debugowania
 from database import Database  # Importuj klasę Database
 
 def main():

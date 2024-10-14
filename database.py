@@ -1,10 +1,6 @@
-# database.py
-
-print("Ładowanie modułu Database")  # Komunikat na początku pliku
-
 import sqlite3
-# from player import Player  # Importuj klasę Player
-from price import Price  # Importuj klasę Price
+
+from price import Price
 from datetime import datetime
 
 class Database:
