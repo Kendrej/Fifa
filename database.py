@@ -1,6 +1,6 @@
 import sqlite3
 
-from price import Price
+from models.price import Price
 from datetime import datetime
 
 class Database:

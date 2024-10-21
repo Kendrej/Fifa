@@ -1,19 +1,15 @@
-from database import Database  # Importuj klasę Database
+from database import Database
 
 def main():
     # 1. Inicjalizacja bazy danych
-    db = Database()
+    database = Database()
 
     # 2. Dodanie przykładowego zawodnika
-    db.add_or_update_player('Robert', 'Lewandowski', 160000)
-
-    # 3. Wyświetlenie wszystkich cen zawodników
-    prices = db.get_all_prices()
-    for price in prices:
-        print(price)
+    database.add_or_update_player('Robert', 'Lewandowski', 17000)
 
     # 4. Zamykanie połączenia z bazą danych
-    db.close()
+    database.close()
 
-if __name__ == "__main__":
-    main()
+    print("Database updated.")
+
+main()
