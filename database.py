@@ -27,7 +27,7 @@ class Database:
             FOREIGN KEY (user_id) REFERENCES users (id)
         )
         ''')
-
+ 
     def add_or_update_player(self, first_name, last_name, price_value):
         self.cursor.execute('''
         SELECT id FROM users WHERE first_name = ? AND last_name = ?
@@ -52,15 +52,6 @@ class Database:
         INSERT INTO prices (user_id, price, timestamp)
         VALUES (?, ?, ?)
         ''', (price.user_id, price.price, price.timestamp))
-
-    def get_all_prices(self):
-        self.cursor.execute('''
-        SELECT users.first_name, users.last_name, prices.price, prices.timestamp
-        FROM users
-        JOIN prices ON users.id = prices.user_id
-        ORDER BY prices.timestamp
-        ''')
-        return self.cursor.fetchall()
 
     def close(self):
         self.connection.close()
