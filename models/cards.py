@@ -1,21 +1,16 @@
-class Player:
-    def __init__(self, user_id, first_name, last_name):
-        self.user_id = user_id
-        self.first_name = first_name
-        self.last_name = last_name
-
-# models/cards.py
 def create_cards_table(cursor):
     cursor.execute('''
-    CREATE TABLE IF NOT EXISTS cards (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        overall INTEGER NOT NULL,
-        club_id INTEGER NOT NULL,
-        nationality_id INTEGER NOT NULL,
-        position_id INTEGER NOT NULL,
-        FOREIGN KEY (club_id) REFERENCES clubs (id),
-        FOREIGN KEY (nationality_id) REFERENCES nationalities (id),
-        FOREIGN KEY (position_id) REFERENCES positions (id)
+    CREATE TABLE IF NOT EXISTS players_card (
+        id_card INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_nationality INTEGER,
+        id_club INTEGER,
+        id_playstyle INTEGER,
+        id_position INTEGER,
+        first_name VARCHAR(255) NOT NULL,
+        second_name VARCHAR(255),
+        FOREIGN KEY (id_nationality) REFERENCES nationalities(id),
+        FOREIGN KEY (id_club) REFERENCES clubs(id),
+        FOREIGN KEY (id_playstyle) REFERENCES playstyles(id),
+        FOREIGN KEY (id_position) REFERENCES positions(id)
     )
     ''')
