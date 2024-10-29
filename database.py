@@ -1,7 +1,13 @@
 import sqlite3
-
-from models.price import Price
-from datetime import datetime
+from models.cards import create_cards_table
+from models.clubs import create_clubs_table
+from models.leagues import create_leagues_table
+from models.nationalities import create_nationalities_table
+from models.positions import create_positions_table
+from models.prices import Price
+from models.statistics import create_statistics_table
+from models.playstyles import create_playstyles_table
+from models.oth_statistics import create_oth_statistics_table
 
 class Database:
     def __init__(self, db_name='mydatabase.db'):
@@ -10,24 +16,18 @@ class Database:
         self._create_tables()
 
     def _create_tables(self):
-        self.cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
-            last_name TEXT NOT NULL
-        )
-        ''')
+        create_clubs_table(self.cursor)
+        create_leagues_table(self.cursor)
+        create_nationalities_table(self.cursor)
+        create_positions_table(self.cursor)
+        create_cards_table(self.cursor)
+        Price.create_prices_table(self.cursor)
+        create_statistics_table(self.cursor)
+        create_playstyles_table(self.cursor)
+        create_oth_statistics_table(self.cursor)
+        
+        self.connection.commit()
 
-        self.cursor.execute('''
-        CREATE TABLE IF NOT EXISTS prices (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            price INTEGER NOT NULL,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users (id)
-        )
-        ''')
- 
     def add_or_update_player(self, first_name, last_name, price_value):
         self.cursor.execute('''
         SELECT id FROM users WHERE first_name = ? AND last_name = ?
