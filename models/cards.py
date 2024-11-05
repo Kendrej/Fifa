@@ -1,11 +1,14 @@
 class Cards:
     def search_for_id(cursor, id_card):
-        cursor.execute('SELECT id_card FROM players_card')
-        for row in cursor.fetchall():
-            if row[0] == id_card:  
-                return True
-        return False
+        cursor.execute('SELECT id_card FROM players_card WHERE id_card = ?', (id_card,))
+        return cursor.fetchone() is not None
 
+    def addPlayersCard(cursor,idCard,firstName,secondName):
+        cursor.execute('''
+    INSERT INTO players_card (id_card,first_name, second_name)
+    VALUES (?, ?, ?)
+    ''', (idCard,firstName,secondName))
+        
     def create_cards_table(cursor):
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS players_card (

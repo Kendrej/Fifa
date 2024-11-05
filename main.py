@@ -5,15 +5,15 @@ from models.cards import Cards
 def main():
     database = Database()
     
-    user_id = int(1)
+    user_id = int(2)
     
-    if Cards.search_for_id(database.get_cursor(),user_id) :
-        database.addPlayersPrice()
+    if database.check__if_id_card_existing(user_id) :
+        #database.addPlayersPrice()
+        print("Id karty jest juz w bazie danych")
     else:
-        database.addPlayerData()
+        database.addPlayerData(user_id,"Ewa","Pajor")
+        print("Zawodnik dodany")
         
-    # database.add_or_update_player('Robert', 'Lewandowski', 19000)
-
     database.close()
 
     print("Database updated.")

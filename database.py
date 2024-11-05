@@ -5,7 +5,7 @@ from models.leagues import create_leagues_table
 from models.nationalities import create_nationalities_table
 from models.positions import create_positions_table
 from models.prices import Price
-from models.statistics import create_statistics_table
+from models.statistics import statistics
 from models.playstyles import create_playstyles_table
 from models.oth_statistics import create_oth_statistics_table
 
@@ -18,8 +18,14 @@ class Database:
     def get_cursor(self):
         return self.cursor
     
-    def addPlayerData():
-        print()
+    def check__if_id_card_existing(self,user_id):
+        return Cards.search_for_id(self.get_cursor(),user_id)
+        
+    def addPlayerData(self,idCard:int,firstName:str,secondName:str):
+        Cards.addPlayersCard(self.get_cursor(),idCard,firstName,secondName)
+        self.connection.commit()
+
+
 
     def addPlayersPrice():
         print()
@@ -31,7 +37,7 @@ class Database:
         create_positions_table(self.cursor)
         Cards.create_cards_table(self.cursor)
         Price.create_prices_table(self.cursor)
-        create_statistics_table(self.cursor)
+        statistics.create_statistics_table(self.cursor)
         create_playstyles_table(self.cursor)
         create_oth_statistics_table(self.cursor)
         
