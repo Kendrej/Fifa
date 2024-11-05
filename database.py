@@ -23,9 +23,9 @@ class Database:
         
     def addPlayerData(self,idCard:int,firstName:str,secondName:str):
         Cards.addPlayersCard(self.get_cursor(),idCard,firstName,secondName)
-        self.connection.commit()
 
-
+    def addPlayerStatistics(self,id_card:int,overall:int,pace:int,shooting:int,passing:int,dribbling:int,defence:int,physical:int):
+        statistics.add_statistics(self.get_cursor(),id_card,overall,pace,shooting,passing,dribbling,defence,physical)
 
     def addPlayersPrice():
         print()
@@ -44,4 +44,5 @@ class Database:
         self.connection.commit()
 
     def close(self):
+        self.connection.commit()
         self.connection.close()
