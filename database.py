@@ -7,7 +7,7 @@ from models.positions import create_positions_table
 from models.prices import Price
 from models.statistics import statistics
 from models.playstyles import create_playstyles_table
-from models.oth_statistics import create_oth_statistics_table
+from models.oth_statistics import otherStatistics
 
 class Database:
     def __init__(self, db_name='mydatabase.db'):
@@ -21,12 +21,14 @@ class Database:
     def check__if_id_card_existing(self,user_id):
         return Cards.search_for_id(self.get_cursor(),user_id)
         
-    def addPlayerData(self,idCard:int,firstName:str,secondName:str):
+    def addCard(self,idCard:int,firstName:str,secondName:str):
         Cards.addPlayersCard(self.get_cursor(),idCard,firstName,secondName)
 
-    def addPlayerStatistics(self,id_card:int,overall:int,pace:int,shooting:int,passing:int,dribbling:int,defence:int,physical:int):
+    def addStatistics(self,id_card:int,overall:int,pace:int,shooting:int,passing:int,dribbling:int,defence:int,physical:int):
         statistics.add_statistics(self.get_cursor(),id_card,overall,pace,shooting,passing,dribbling,defence,physical)
 
+    def addOtherStatistics(self,card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType):
+        otherStatistics.add_other_statistics(self.get_cursor(),card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType)
     def addPlayersPrice():
         print()
 
@@ -39,7 +41,7 @@ class Database:
         Price.create_prices_table(self.cursor)
         statistics.create_statistics_table(self.cursor)
         create_playstyles_table(self.cursor)
-        create_oth_statistics_table(self.cursor)
+        otherStatistics.create_oth_statistics_table(self.cursor)
         
         self.connection.commit()
 

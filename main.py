@@ -3,7 +3,7 @@ from models.cards import Cards
 
 
 def main():
-    database = Database()
+    database = Database("test.db")
     
     user_id = int(3)
     
@@ -11,8 +11,9 @@ def main():
         #database.addPlayersPrice()
         print("Id karty jest juz w bazie danych")
     else:
-        database.addPlayerData(user_id,"Cristiano","Ronaldo")
-        database.addPlayerStatistics(user_id,87,76,88,76,67,33,73)
+        database.addCard(user_id,"Cristiano","Ronaldo")
+        database.addStatistics(user_id,87,76,88,76,67,33,73)
+        database.addOtherStatistics(user_id,57,168,3,4,"right","Mostly Explosive","Short & Normal")
         print("Zawodnik dodany")
         
     database.close()
