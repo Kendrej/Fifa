@@ -2,7 +2,7 @@ import sqlite3
 from models.cards import Cards
 from models.clubs import create_clubs_table
 from models.leagues import create_leagues_table
-from models.nationalities import create_nationalities_table
+from models.nationalities import nationalities
 from models.positions import create_positions_table
 from models.prices import Price
 from models.statistics import statistics
@@ -18,9 +18,24 @@ class Database:
     def get_cursor(self):
         return self.cursor
     
-    def check__if_id_card_existing(self,user_id):
+    def check_if_id_card_exists(self,user_id:int):
         return Cards.search_for_id(self.get_cursor(),user_id)
-        
+    
+    def check_if_nationality_exists(self,nationality:str):
+        if nationalities.getId_orReturnNone(self.get_cursor(),nationality) is None:
+            return False
+        else:
+            return True
+    
+    def getNationalityID(self,nationality:str):
+        return nationalities.getId_orReturnNone(self.get_cursor(),nationality)
+
+    def connectNationalityIDWithCardID(self,idNationality:int,idCard:int):
+        Cards.addNationalitykey(self.get_cursor(),idNationality,idCard)
+
+    def addNationality(self,nationality:str):
+        nationalities.add_nationality(self.get_cursor(),nationality)
+
     def addCard(self,idCard:int,firstName:str,secondName:str):
         Cards.addPlayersCard(self.get_cursor(),idCard,firstName,secondName)
 
@@ -35,7 +50,7 @@ class Database:
     def _create_tables(self):
         create_clubs_table(self.cursor)
         create_leagues_table(self.cursor)
-        create_nationalities_table(self.cursor)
+        nationalities.create_nationalities_table(self.cursor)
         create_positions_table(self.cursor)
         Cards.create_cards_table(self.cursor)
         Price.create_prices_table(self.cursor)
