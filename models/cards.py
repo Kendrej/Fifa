@@ -16,6 +16,13 @@ class Cards:
     WHERE id_card = ?
     ''', (idNationality, idCard))
 
+    def addClubkey(cursor,idClub:int,idCard:int):
+        cursor.execute('''
+        UPDATE players_card
+        SET id_club = ?
+        WHERE id_card = ?
+        ''', (idClub,idCard))
+
     def create_cards_table(cursor):
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS players_card (

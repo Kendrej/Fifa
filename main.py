@@ -22,6 +22,15 @@ def main():
             print("dodana narodowosc")
         database.connectNationalityIDWithCardID(database.getNationalityID("Portugal"),user_id)
 
+        if not database.check_if_id_league_exists("LALIGA EA SPORTS"):
+            database.addLeague("LALIGA EA SPORTS")
+            print("dodana liga")
+
+        if not database.check_if_club_exists("Real Madrid"):
+            database.addClub("Real Madrid")
+            print("Dodany klub")
+            database.connectLeagueIDWithClubID(database.getLeagueID("LALIGA EA SPORTS"),database.getClubID("Real Madrid"))
+        database.connectClubIDWithCardID(database.getClubID("Real Madrid"),user_id)
 
 
         print("Zawodnik dodany")
