@@ -28,7 +28,6 @@ class Database:
         statistics.create_statistics_table(self.cursor)
         create_playstyles_table(self.cursor)
         otherStatistics.create_oth_statistics_table(self.cursor)
-        
         self.connection.commit()
 
     def close(self):
@@ -37,7 +36,7 @@ class Database:
 
     
 
-    
+    # --- Leagues Operations ---
     def check_if_id_league_exists(self,league:str):
         return leagues.getId_orReturnNone(self.get_cursor(),league) is not None
     
@@ -49,6 +48,7 @@ class Database:
 
 
 
+    # --- Clubs Operations ---
     def check_if_club_exists(self,club:str):
         return clubs.GetId_orReturnNone(self.get_cursor(),club) is not None
 
@@ -61,8 +61,9 @@ class Database:
     def addClub(self,club:str):
         clubs.add_club(self.get_cursor(),club)
 
-    
 
+    
+    # --- Nationalities Operations ---
     def check_if_nationality_exists(self,nationality:str):
         return nationalities.getId_orReturnNone(self.get_cursor(),nationality) is not None
     
@@ -74,6 +75,7 @@ class Database:
 
 
 
+    # --- Cards Operations ---
     def addCard(self,idCard:int,firstName:str,secondName:str):
         Cards.addPlayersCard(self.get_cursor(),idCard,firstName,secondName)
         
@@ -88,17 +90,12 @@ class Database:
 
 
 
+    # --- Statistics Operations ---
     def addStatistics(self,id_card:int,overall:int,pace:int,shooting:int,passing:int,dribbling:int,defence:int,physical:int):
         statistics.add_statistics(self.get_cursor(),id_card,overall,pace,shooting,passing,dribbling,defence,physical)
 
 
 
+    # --- Other Statistics Operations ---
     def addOtherStatistics(self,card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType):
-        otherStatistics.add_other_statistics(self.get_cursor(),card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType)
-
-
-
-    def addPlayersPrice():
-        print()
-
-    
+        otherStatistics.add_other_statistics(self.get_cursor(),card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType)  
