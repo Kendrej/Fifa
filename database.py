@@ -6,7 +6,7 @@ from models.nationalities import nationalities
 from models.positions import create_positions_table
 from models.prices import Price
 from models.statistics import statistics
-from models.playstyles import create_playstyles_table
+from models.playstyles import playstyles
 from models.oth_statistics import otherStatistics
 
 class Database:
@@ -26,7 +26,7 @@ class Database:
         Cards.create_cards_table(self.cursor)
         Price.create_prices_table(self.cursor)
         statistics.create_statistics_table(self.cursor)
-        create_playstyles_table(self.cursor)
+        playstyles.create_playstyles_table(self.cursor)
         otherStatistics.create_oth_statistics_table(self.cursor)
         self.connection.commit()
 
@@ -99,3 +99,18 @@ class Database:
     # --- Other Statistics Operations ---
     def addOtherStatistics(self,card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType):
         otherStatistics.add_other_statistics(self.get_cursor(),card_id, weight, height, weakFootStars, skillMovesStars, prefferedFoot, runningStyle, bodyType)  
+
+
+    
+    # --- Playstyles Operations ---
+    def addPlaystyle(self,playstyle:str):
+        playstyles.add_playstyle(self.get_cursor(),playstyle)
+
+    def getPlaystyleId(self,playstyle:str):
+        return playstyles.GetId_or_ReturnNone(self.get_cursor(),playstyle)
+    
+    def check_if_id_playstyle_exists(self,playstyle:str):
+        return playstyles.GetId_or_ReturnNone(self.get_cursor(),playstyle) is not None
+    
+    def assign_playstyle_to_Card(self,playstyle_id:int,card_id:int,is_plus:bool):
+        playstyles.assign_playstyle_to_Card(self.get_cursor(),playstyle_id,card_id,is_plus)
