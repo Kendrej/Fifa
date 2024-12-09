@@ -12,6 +12,7 @@ def main():
     Liga = "LALIGA EA SPORTS"
     klub = "Real Madrid"
     playstyle = "Rapid"
+    position = "ST"
     isPlus = True #czy playstyle jest plus(1) czy nie (0)
 
     if database.check_if_id_card_exists(user_id) :
@@ -44,6 +45,10 @@ def main():
             print("Playstyle Dodany")
         database.assign_playstyle_to_Card(database.getPlaystyleId(playstyle),user_id,isPlus)
 
+        if not database.check_if_id_position_exists(position):
+            database.addPosition(position)
+            print("pozycja dodana")
+        database.assign_position_to_Card(database.getPositionId(position),user_id)
 
         print("Zawodnik dodany")
         

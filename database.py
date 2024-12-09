@@ -3,7 +3,7 @@ from models.cards import Cards
 from models.clubs import clubs
 from models.leagues import leagues
 from models.nationalities import nationalities
-from models.positions import create_positions_table
+from models.positions import positions
 from models.prices import Price
 from models.statistics import statistics
 from models.playstyles import playstyles
@@ -22,7 +22,7 @@ class Database:
         clubs.create_clubs_table(self.cursor)
         leagues.create_leagues_table(self.cursor)
         nationalities.create_nationalities_table(self.cursor)
-        create_positions_table(self.cursor)
+        positions.create_positions_table(self.cursor)
         Cards.create_cards_table(self.cursor)
         Price.create_prices_table(self.cursor)
         statistics.create_statistics_table(self.cursor)
@@ -114,3 +114,18 @@ class Database:
     
     def assign_playstyle_to_Card(self,playstyle_id:int,card_id:int,is_plus:bool):
         playstyles.assign_playstyle_to_Card(self.get_cursor(),playstyle_id,card_id,is_plus)
+
+
+
+    # --- Positions Operations ---
+    def addPosition(self,position:str):
+        positions.add_position(self.get_cursor(),position)
+
+    def getPositionId(self,position:str):
+        return positions.GetId_or_ReturnNone(self.get_cursor(),position)
+
+    def check_if_id_position_exists(self,position:str):
+        return positions.GetId_or_ReturnNone(self.get_cursor(),position) is not None
+    
+    def assign_position_to_Card(self,position_id:int,card_id:int):
+        positions.assign_position_to_Card(self.get_cursor(),position_id,card_id)

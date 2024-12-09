@@ -32,7 +32,7 @@ class playstyles:
         ''')
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS card_playstyle (
-            link_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            card_playstyle_id INTEGER PRIMARY KEY AUTOINCREMENT,
             card_id INTEGER NOT NULL,
             playstyle_id INTEGER NOT NULL,
             is_plus BOOLEAN NOT NULL CHECK (is_plus IN (0, 1)),  -- 0 = zwykły, 1 = plus
