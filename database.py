@@ -129,3 +129,9 @@ class Database:
     
     def assign_position_to_Card(self,position_id:int,card_id:int):
         positions.assign_position_to_Card(self.get_cursor(),position_id,card_id)
+
+
+
+    # --- Price Operations ---
+    def addPlayersPrice(self,user_id,price,timestamp=None):
+        Price.addPrice(self.get_cursor(),user_id,price,timestamp)

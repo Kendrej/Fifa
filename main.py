@@ -4,7 +4,7 @@ from models.cards import Cards
 
 def main():
     database = Database("test.db")
-    
+    price = 180000
     user_id = int(1)
     imie = "Cristiano"
     nazwisko = "Ronaldo"
@@ -16,7 +16,6 @@ def main():
     isPlus = True #czy playstyle jest plus(1) czy nie (0)
 
     if database.check_if_id_card_exists(user_id) :
-        #database.addPlayersPrice()
         print("Id karty jest juz w bazie danych")
     else:
         database.addCard(user_id,imie,nazwisko)
@@ -49,9 +48,11 @@ def main():
             database.addPosition(position)
             print("pozycja dodana")
         database.assign_position_to_Card(database.getPositionId(position),user_id)
-
         print("Zawodnik dodany")
-        
+
+    database.addPlayersPrice(user_id,price)
+    print("cena dodana")
+   
     database.close()
 
     print("Database updated.")

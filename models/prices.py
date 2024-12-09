@@ -6,7 +6,13 @@ class Price:
         self.price = price
         self.timestamp = timestamp or datetime.now()
         
-    # models/prices.py
+    def addPrice(cursor,user_id,price,timestamp=None):
+        timestamp_to_use = timestamp or datetime.now()
+        cursor.execute('''
+        INSERT INTO prices (card_id,price,timestamp)
+        VALUES(?,?,?)
+        ''',(user_id,price,timestamp_to_use))
+
     def create_prices_table(cursor):
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS prices (
